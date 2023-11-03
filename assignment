@@ -1,0 +1,127 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Main {
+   public static void main(String[] args) {
+        int maxN = 1000000; // Maximum input size
+        int step = 10000; // Step size for increasing input size
+
+        System.out.println("Input Size, Naive Iterative Time (ms), Divide-and-Conquer Time (ms)");
+        for (int n = 1; n <= maxN; n += step) {
+            long startTimeNaive = System.currentTimeMillis();
+            powerIterative(2, n); // Naive Iterative Method (change the base if needed)
+            long endTimeNaive = System.currentTimeMillis();
+
+            long startTimeDivideConquer = System.currentTimeMillis();
+            powerDivideConquer(2, n); // Divide-and-Conquer Approach (change the base if needed)
+            long endTimeDivideConquer = System.currentTimeMillis();
+
+            System.out.println(n + ", " + (endTimeNaive - startTimeNaive) + ", " + (endTimeDivideConquer - startTimeDivideConquer));
+        }
+        int maxNn = 1000000; // Maximum input size
+        int stepp = 10000; // Step size for increasing input size
+
+        System.out.println("Input Size,Time (ms)");
+        for (int n = 1; n <= maxNn; n += stepp) {
+            int[] S = generateRandomArray(n); // Generate random input array of size n
+
+            long startTime = System.currentTimeMillis();
+            findTwoSumPairs(S, 2 * n); // Run the algorithm (adjust targetSum as needed)
+            long endTime = System.currentTimeMillis();
+
+            System.out.println(n + "," + (endTime - startTime));
+        }
+
+   }
+   static int[] generateRandomArray(int size) {
+        int[] array = new int[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = (int) (Math.random() * size * 2); // Generating random integers within the range [0, 2*size)
+        }
+        return array;
+    }
+
+    static int powerIterative(int a, int n) {
+        int result = 1;
+        for (int i = 0; i < n; i++) {
+            result *= a;
+        }
+        return result;
+    }
+    //o(n)
+
+
+    static int powerDivideConquer(int a, int n) {
+        if (n == 0) {
+            return 1;
+        } else if (n % 2 == 0) {
+            int halfPower = powerDivideConquer(a, n / 2);
+            return halfPower * halfPower;
+        } else {
+            int halfPower = powerDivideConquer(a, (n - 1) / 2);
+            return halfPower * halfPower * a;
+        }
+    }
+    //T(n)=T(n/2)+O(1)
+    //o(log n)
+
+
+
+    static List<List<Integer>> findTwoSumPairs(int[] S, int targetSum) {
+        List<List<Integer>> pairs = new ArrayList<>();
+        
+        // Sort the array using Merge Sort
+        Arrays.sort(S);
+        //o(nlogn)
+
+
+
+           public static void mergeSort(int[] array, int left, int right) {
+        if (left < right) {
+            // Find the middle point of the array
+            int mid = left + (right - left) / 2;
+
+            // Recursively sort the two halves
+            mergeSort(array, left, mid);
+            mergeSort(array, mid + 1, right);
+
+            // Merge the sorted halves
+            merge(array, left, mid, right);
+        }
+    }
+        
+        // Iterate through the sorted array and find pairs using Binary Search
+        for (int i = 0; i < S.length - 1; i++) {
+            int complement = targetSum - S[i];
+            if (binarySearch(S, complement, i + 1, S.length - 1)) {
+                List<Integer> pair = new ArrayList<>();
+                pair.add(S[i]);
+                pair.add(complement);
+                pairs.add(pair);
+            }
+        }
+        
+        return pairs;
+    }
+
+    // Binary Search function
+    static boolean binarySearch(int[] array, int target, int left, int right) {
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (array[mid] == target) {
+                return true;
+            } else if (array[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return false;
+    }
+    //o(nlogn)
+    //T(n)=2T(n/2)+o(n)
+
+    
+}
