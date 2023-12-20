@@ -1,0 +1,18 @@
+Dynamic Programming Matrix:
+
+A two-dimensional matrix dp of size (m+1) x (n+1) is used to store intermediate scores.
+Each cell dp[i][j] represents the maximum score for aligning substrings x[1..i] and y[1..j].
+Initialization:
+
+The first row and column are initialized based on the scoring matrix to account for gaps.
+Matrix Filling:
+
+The matrix is filled iteratively using a dynamic programming approach.
+At each cell (i, j), the maximum score is computed by considering three possibilities: matching characters, deleting a character from x, or deleting a character from y.
+Traceback:
+
+After the matrix is filled, a traceback process reconstructs the optimal alignment by following the path with the maximum score.
+Time Complexity:
+
+The time complexity of the algorithm is O(mn), where m and n are the lengths of the input sequences x and y.
+This efficiency is achieved by avoiding recomputation through dynamic programming.
